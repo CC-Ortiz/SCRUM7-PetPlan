@@ -1,63 +1,30 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PetPlan | Inicio</title>
+@extends('layouts.app')
 
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Rubik:wght@300;400;500;700&display=swap" rel="stylesheet">
+@section('titulo', 'Inicio')
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+@section('nav-links')
+    <li><a href="#beneficios"> Beneficios </a></li>
+    <li><a href="#servicios"> Servicios </a></li>
+    <li> <a href="{{ route('login') }}" class="btn btn-primary"> Iniciar Sesión </a> </li>
+    <li> <a href="{{ route('registro') }}" class="btn btn-secundary"> Registrarse </a> </li>
+@endsection
 
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-</head>
-<body>
-
-    <!-- HEADER -->
-    <header>
-        <div class="container header-container">
-
-            <div class="logo">
-                <i class="fas fa-dog"></i>
-                <span> PetPlan </span>
-            </div>
-
-            <nav>
-                <ul class="nav-links">
-                    <li><a href="#inicio"> Inicio </a></li>
-                    <li><a href="#beneficios"> Beneficios </a></li>
-                    <li><a href="#servicios"> Servicios </a></li>
-
-                    <li> <a href="{{ url('/login') }}" class="btn btn-primary"> Iniciar Sesión </a> </li>
-                    <li> <a href="{{ url('/registro') }}" class="btn btn-secundary"> Registrarse </a> </li>
-                </ul>
-            </nav>
-
-        </div>
-    </header>
+@section('contenido')
 
     <!-- HERO -->
     <section id="inicio" class="hero">
         <div class="container hero-container">
 
             <div class="hero-content">
-
-                <h1>
-                    Gestiona el cuidado de las mascotas de forma eficiente
-                </h1>
-
+                <h1> Gestiona el cuidado de las mascotas de forma eficiente </h1>
                 <p>
-                    PetPlan es una plataforma diseñada para optimizar la gestión veterinaria mediante el control de citas, vacunas e historial clínico. Facilita el seguimiento de los cuidados de las mascotas y mejora la organización tanto para veterinarios como para dueños.
+                    PetPlan es una plataforma diseñada para optimizar la gestión veterinaria mediante el control de citas, vacunas e historial clínico.
+                    Facilita el seguimiento de los cuidados de las mascotas y mejora la organización tanto para veterinarios como para dueños.
                 </p>
 
                 <div class="hero-buttons">
-                    <a href="#servicios" class="btn btn-primary">
-                        Conocer Más
-                    </a>
+                    <a href="#servicios" class="btn btn-primary"> Conocer Más </a>
                 </div>
-
-  
-
         </div>
     </section>
 
@@ -73,9 +40,7 @@
 
                 <div class="service-card">
                     <i class="fas fa-clock"></i>
-
                     <h3>Ahorro de Tiempo</h3>
-
                     <p>
                         Agenda citas de manera rápida y organizada, evitando procesos manuales y reduciendo errores en la programación de consultas.
                     </p>
@@ -83,9 +48,7 @@
 
                 <div class="service-card">
                     <i class="fas fa-folder-open"></i>
-
                     <h3>Información Centralizada</h3>
-
                     <p>
                         Mantén toda la información de las mascotas en un solo lugar, incluyendo historial clínico, vacunas y tratamientos.
                     </p>
@@ -93,9 +56,7 @@
 
                 <div class="service-card">
                     <i class="fas fa-chart-line"></i>
-
                     <h3>Mejor Seguimiento</h3>
-
                     <p>
                         Facilita el control de vacunas, consultas y procedimientos, permitiendo un monitoreo constante del bienestar de las mascotas.
                     </p>
@@ -147,15 +108,4 @@
         </div>
     </section>
 
-    <!-- FOOTER -->
-    <footer>
-        <div class="container text-center">
-            <h3>PetPlan</h3>
-            <p> Plataforma para la gestión de citas, vacunas e historial clínico de mascotas.</p>
-
-            <p>© 2026 PetPlan. Todos los derechos reservados.</p>
-        </div>
-    </footer>
-
-</body>
-</html>
+@endsection

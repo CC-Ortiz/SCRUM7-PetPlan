@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\User;
+use App\Models\Dueno;
 
 return [
 
@@ -42,6 +42,14 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+
+        // Guard independiente para los veterinarios: comparten el mismo
+        // formulario de login que los dueños, pero su sesión y sus permisos
+        // se manejan por separado.
+        'veterinario' => [
+            'driver' => 'session',
+            'provider' => 'veterinarios',
+        ],
     ],
 
     /*
@@ -64,7 +72,12 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => env('AUTH_MODEL', User::class),
+            'model' => env('AUTH_MODEL', Dueno::class),
+        ],
+
+        'veterinarios' => [
+            'driver' => 'eloquent',
+            'model' => \App\Models\Veterinario::class,
         ],
 
         // 'users' => [

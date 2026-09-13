@@ -4,24 +4,24 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Cita extends Model
+class HistoriaClinica extends Model
 {
-    protected $table = 'citas';
-    protected $primaryKey = 'id_citas';
+    protected $table = 'historias_clinicas';
+    protected $primaryKey = 'id_historia_clinica';
 
     protected $fillable = [
-        'fecha_cita',
-        'categoria',
-        'descripcion',
-        'confirmacion',
         'id_mascota',
+        'diagnostico',
+        'tratamiento',
+        'vacuna_recomendada',
+        'fecha_registro',
+        'historia_clinica',
     ];
 
     protected function casts(): array
     {
         return [
-            'fecha_cita' => 'datetime',
-            'confirmacion' => 'boolean',
+            'fecha_registro' => 'date',
         ];
     }
 
@@ -34,8 +34,8 @@ class Cita extends Model
     {
         return $this->belongsToMany(
             Veterinario::class,
-            'cita_veterinario',
-            'id_citas',
+            'historia_veterinario',
+            'id_historia_clinica',
             'id_veterinario'
         );
     }

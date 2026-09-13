@@ -1,57 +1,63 @@
-<!DOCTYPE html>
+@extends('layouts.dashboard')
 
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PetPlan | Agendar Cita</title>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Rubik:wght@300;400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-<header class="page-header">
-<div class="container">
-    <h1>Agendar Cita</h1>
-    <a href="javascript:history.back()" class="btn btn-secundary">Volver</a>
-</div>
-</header>
-<main class="container">
+@section('titulo', 'Agendar Cita')
+
+@section('contenido')
+<h1 class="page-title">Agendar Cita</h1>
 <div class="form-card">
-    <form>
-        <div class="form-grupo">
-            <label>Mascota</label>
-            <select>
-                <option>Max</option>
-                <option>Luna</option>
-                <option>Rocky</option>
-            </select>
-        </div>
-        <div class="form-grupo">
-            <label>Fecha</label>
-            <input type="date" required>
-        </div>
-        <div class="form-grupo">
-            <label>Hora</label>
-            <input type="time" required>
-        </div>
-        <div class="form-grupo">
-            <label>Categoría</label>
-            <select>
-                <option>Consulta General</option>
-                <option>Vacunación</option>
-                <option>Control</option>
-                <option>Baño</option>
-            </select>
-        </div>
-        <div class="form-grupo">
-            <label>Observaciones</label>
-            <textarea rows="4" placeholder="Escribe cualquier observación relevante..."></textarea>
-        </div>
-        <button class="btn btn-primary">
-            Confirmar Cita
-        </button>
-    </form>
+    @if ($mascotas->isEmpty())
+        <p>
+            Necesitas registrar al menos una mascota antes de agendar una cita.
+            <a href="{{ route('mascotas.create') }}" class="btn btn-primary">Registrar Mascota</a>
+        </p>
+    @else
+        <form action="{{ route('citas.store') }}" method="POST">
+            @csrf
+            <div class="form-grupo">
+                <label>Mascota</label>
+                <select name="id_mascota" required>
+                    @foreach ($mascotas as $mascota)
+                        <option value="{{ $mascota->id_mascota }}" @selected(old('id_mascota') == $mascota->id_mascota)>
+                            {{ $mascota->nombre_mascota }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="form-grupo">
+                <label>Fecha</label>
+                <input type="date" name="fecha" value="{{ old('fecha') }}" required>
+            </div>
+            <div class="form-grupo">
+                <label>Hora</label>
+                <input type="time" name="hora" value="{{ old('hora') }}" required>
+            </div>
+            <div class="form-grupo">
+                <label>Categoría</label>
+                <select name="categoria">
+                    @foreach (['Consulta General', 'Vacunación', 'Control', 'Baño'] as $categoria)
+                        <option value="{{ $categoria }}" @selected(old('categoria') == $categoria)>{{ $categoria }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="form-grupo">
+                <label>Veterinario</label>
+                <select name="id_veterinario">
+                    <option value="">Según disponibilidad</option>
+                    @foreach ($veterinarios as $veterinario)
+                        <option value="{{ $veterinario->id_veterinario }}" @selected(old('id_veterinario') == $veterinario->id_veterinario)>
+                            {{ $veterinario->nombreCompleto() }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="form-grupo">
+                <label>Observaciones</label>
+                <textarea name="descripcion" rows="4" placeholder="Escribe cualquier observación relevante...">{{ old('descripcion') }}</textarea>
+            </div>
+            <button class="btn btn-primary">
+                Confirmar Cita
+            </button>
+        </form>
+    @endif
 </div>
-</main>
-</body>
-</html>
+@endsection

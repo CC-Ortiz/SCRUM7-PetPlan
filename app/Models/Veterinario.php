@@ -2,40 +2,63 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
-class Veterinario extends Model
+class Veterinario extends Authenticatable
 {
+    use HasFactory, Notifiable;
+
     protected $table = 'veterinarios';
     protected $primaryKey = 'id_veterinario';
-    public $timestamps = false;
 
     protected $fillable = [
         'nombre_veterinario',
         'apellido_veterinario',
         'num_documento_vet',
-        'num_tarjetaprofesional',
+        'num_tarjeta_profesional',
         'email_veterinario',
         'num_contacto_veterinario',
+        'password',
     ];
+
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
+    protected function casts(): array
+    {
+        return [
+            'password' => 'hashed',
+        ];
+    }
+
+
 
     public function citas()
     {
         return $this->belongsToMany(
             Cita::class,
-            'asignacion_veterinario',
-            'veterinarios_id_veterinario',
-            'citas_id_citas'
+            'cita_veterinario',
+            'id_veterinario',
+            'id_citas'
         );
     }
 
     public function historiasClinicas()
     {
         return $this->belongsToMany(
-            HistoriaClinicaMascota::class,
-            'edicion_historia_clinica',
-            'veterinarios_id_veterinario',
-            'historia_clinica_mascota_id_historia_clinica'
+            HistoriaClinica::class,
+            'historia_veterinario',
+            'id_veterinario',
+            'id_historia_clinica'
         );
+    }
+
+    public function nombreCompleto(): string
+    {
+        return trim("{$this->nombre_veterinario} {$this->apellido_veterinario}");
     }
 }

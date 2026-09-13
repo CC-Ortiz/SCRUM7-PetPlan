@@ -1,26 +1,12 @@
-<!DOCTYPE html>
+@extends('layouts.dashboard')
 
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PetPlan | Citas</title>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Rubik:wght@300;400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-<header class="page-header">
-    <div class="container">
-    <h1>Gestión de Citas</h1>
-    <a href="javascript:history.back()" class="btn btn-secundary">
-        Volver
-    </a>
-</div>
-</header>
-<main class="container">
+@section('titulo', 'Citas')
+
+@section('contenido')
+<h1 class="page-title">Gestión de Citas</h1>
 <div class="section-header">
     <h2>Citas Programadas</h2>
-    <a href="agendar-citas.html" class="btn btn-primary">
+    <a href="{{ route('citas.create') }}" class="btn btn-primary">
         + Agendar Cita
     </a>
 </div>
@@ -32,36 +18,32 @@
                 <th>Fecha</th>
                 <th>Hora</th>
                 <th>Categoría</th>
+                <th>Veterinario</th>
                 <th>Estado</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>Max</td>
-                <td>25/06/2026</td>
-                <td>10:00 AM</td>
-                <td>Consulta</td>
-                <td>
-                    <span class="badge success">
-                        Programada
-                    </span>
-                </td>
-            </tr>
-
-            <tr>
-                <td>Luna</td>
-                <td>27/06/2026</td>
-                <td>03:00 PM</td>
-                <td>Vacunación</td>
-                <td>
-                    <span class="badge warning">
-                        Pendiente
-                    </span>
-                </td>
-            </tr>
+            @forelse ($citas as $cita)
+                <tr>
+                    <td>{{ $cita->mascota->nombre_mascota }}</td>
+                    <td>{{ $cita->fecha_cita->format('d/m/Y') }}</td>
+                    <td>{{ $cita->fecha_cita->format('h:i A') }}</td>
+                    <td>{{ $cita->categoria }}</td>
+                    <td>{{ $cita->veterinarios->map->nombreCompleto()->join(', ') ?: 'Sin asignar' }}</td>
+                    <td>
+                        @if ($cita->confirmacion)
+                            <span class="badge success">Confirmada</span>
+                        @else
+                            <span class="badge warning">Pendiente</span>
+                        @endif
+                    </td>
+                </tr>
+            @empty
+                <tr>
+                    <td colspan="6">No tienes citas programadas.</td>
+                </tr>
+            @endforelse
         </tbody>
     </table>
 </div>
-</main>
-</body>
-</html>
+@endsection

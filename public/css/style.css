@@ -293,7 +293,7 @@ header{
 
 .sidebar-nav{
     flex:1;
-    padding:1rem;
+    width: 200px;
 }
 
 .sidebar-nav ul{
@@ -627,10 +627,13 @@ font-family:'Rubik',sans-serif;
     display:grid;
     grid-template-columns:repeat(auto-fit, minmax(350px, 1fr));
     gap:30px;
+    justify-items: center;
 }
 
 .register-card{
     background:white;
+    width: 100%;
+    max-width:450px;
     padding:35px;
     border-radius:16px;
     box-shadow:var(--shadow-sm);
@@ -654,6 +657,12 @@ font-family:'Rubik',sans-serif;
     font-size:2rem;
 }
 
+.login-btn{
+    width:100%;
+    justify-content:center;
+    padding:12px;
+}
+
 .form-grupo{
     margin-bottom:18px;
 }
@@ -665,7 +674,7 @@ font-family:'Rubik',sans-serif;
 }
 
 .form-grupo input{
-    width:100%;
+    width:94%;
     padding:12px;
     border:1px solid var(--border);
     border-radius:8px;
