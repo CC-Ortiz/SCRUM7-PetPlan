@@ -30,7 +30,7 @@ class AuthController extends Controller
             'password' => ['required', 'string', 'min:6', 'confirmed'],
         ]);
 
-        $dueno = Dueno::create([
+        $duenos = Dueno::create([
             'nombre' => $datos['nombre'],
             'apellido' => $datos['apellido'],
             'email' => $datos['email'],
@@ -40,7 +40,7 @@ class AuthController extends Controller
             'password' => Hash::make($datos['password']),
         ]);
 
-        Auth::guard('web')->login($dueno);
+        Auth::guard('web')->login($duenos);
         $request->session()->regenerate();
 
         return redirect()->route('dashboard')->with('status', 'Cuenta creada correctamente. ¡Bienvenido a PetPlan!');
