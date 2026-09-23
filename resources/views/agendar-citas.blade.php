@@ -55,7 +55,7 @@
                 <textarea name="descripcion" rows="4" placeholder="Escribe cualquier observación relevante...">{{ old('descripcion') }}</textarea>
             </div>
             <button class="btn btn-primary">
-                Confirmar Cita
+                Agendar Cita
             </button>
         </form>
     @endif
