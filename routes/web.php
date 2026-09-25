@@ -10,6 +10,7 @@ use App\Http\Controllers\Veterinario\CitaVeterinarioController;
 use App\Http\Controllers\Veterinario\HistoriaClinicaVeterinarioController;
 use App\Http\Controllers\Veterinario\VeterinarioDashboardController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\pass_recoveryController;
 
 // Páginas públicas
 Route::get('/', function () {
@@ -53,3 +54,10 @@ Route::middleware('auth:veterinario')->prefix('veterinario')->name('veterinario.
     Route::get('/citas/{cita}/historia', [HistoriaClinicaVeterinarioController::class, 'create'])->name('historias.create');
     Route::post('/citas/{cita}/historia', [HistoriaClinicaVeterinarioController::class, 'store'])->name('historias.store');
 });
+
+//Recuperación de Contraseña
+Route::get('/pass_recovery', [pass_recoveryController::class, 'create'])->name('pass_recovery');
+Route::post('/pass_recovery', [pass_recoveryController::class, 'store'])
+    ->middleware('throttle:5,1')->name('password.send');
+Route::get('/pass-reset/{token}', [pass_recoveryController::class, 'edit'])->name('password.reset');
+Route::post('/pass-reset', [pass_recoveryController::class, 'update'])->name('password.update');

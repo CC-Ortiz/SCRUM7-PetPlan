@@ -24,7 +24,17 @@ php artisan key:generate
 #    DB_USERNAME=root
 #    DB_PASSWORD=
 
-# 5. Migrar y sembrar datos base
+# 5. Revisar/Configurar MAIL en .env
+# MAIL_MAILER=smtp
+# MAIL_HOST=smtp.gmail.com
+# MAIL_PORT=587
+# MAIL_USERNAME=scrum7petplan@gmail.com
+# MAIL_PASSWORD=dnuhpmvmbwvfqssz
+# MAIL_ENCRYPTION=tls
+# MAIL_FROM_ADDRESS=scrum7petplan@gmail.com
+# MAIL_FROM_NAME="PetPlan"
+
+# 6. Migrar y sembrar datos base
 php artisan migrate --seed
 
 # 6. Levantar el servidor

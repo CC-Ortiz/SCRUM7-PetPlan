@@ -30,7 +30,7 @@
                 <form action="{{ route('login.attempt') }}" method="POST">
                     @csrf
                     <div class="form-grupo">
-                        <label for="email">Correo Electrónico</label>
+                        <label for="email"> Correo Electrónico </label>
                         <input
                             type="email"
                             id="email"
@@ -41,7 +41,7 @@
                         >
                     </div>
                     <div class="form-grupo">
-                        <label for="password">Contraseña</label>
+                        <label for="password"> Contraseña </label>
                         <input
                             type="password"
                             id="password"
@@ -55,9 +55,7 @@
                             <input type="checkbox" name="remember">
                             Recordarme
                         </label>
-                        <a href="#">
-                            ¿Olvidaste tu contraseña?
-                        </a>
+                        <a href="{{ route('pass_recovery') }}"> ¿Olvidaste tu contraseña? </a>
                     </div>
                     <button type="submit" class="btn btn-primary login-btn"> Iniciar Sesion </button>
                 </form>

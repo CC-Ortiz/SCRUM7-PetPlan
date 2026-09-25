@@ -28,7 +28,7 @@
                         <form action="{{ route('veterinario.citas.aceptar', $cita) }}" method="POST">
                             @csrf
                             <button type="submit" class="btn btn-primary">
-                                Aceptar Cita
+                                Confirmar Cita
                             </button>
                         </form>
                     </td>

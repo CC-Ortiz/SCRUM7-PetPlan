@@ -8,6 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Rubik:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
     @stack('estilos')
 </head>
 <body>
@@ -16,7 +17,7 @@
         <div class="container header-container">
             <div class="logo">
                 <a href="{{ route('inicio') }}">
-                    <i class="fas fa-dog"></i>
+                    <img src="{{ asset('favicon.ico') }}" alt="36" width="36">
                 </a>
                 <span> PetPlan </span>
             </div>
