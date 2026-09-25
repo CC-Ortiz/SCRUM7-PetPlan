@@ -36,7 +36,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
 // Panel del dueño de mascota
 Route::middleware(['auth:sanctum', 'ability:dueno'])->group(function () {
-    Route::apiResource('mascotas', MascotaController::class);
+    Route::apiResource('mascotas', MascotaController::class)->names('api.mascotas');
 
     Route::get('/citas', [CitaController::class, 'index']);
     Route::post('/citas', [CitaController::class, 'store']);
