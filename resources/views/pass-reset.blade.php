@@ -8,54 +8,39 @@
 @endsection
 
 @section('contenido')
-<div class="container py-5">
-    <div class="row justify-content-center">
-        <div class="col-md-7 col-lg-5">
-            <div class="card shadow-sm">
-                <div class="card-body p-4">
+    <div class="container-login">
+        <div class="login-card">    
+            <div class="login-header">
+                <h1> Crea tu contraseña nueva </h1>
+                <p> Escribe una contraseña de al menos 8 caracteres </p>
 
-                    <h1 class="h4 mb-2">Crea tu contraseña nueva</h1>
-                    <p class="text-muted mb-4">
-                        Escribe una contraseña de al menos 8 caracteres.
-                    </p>
-
-                    <form method="POST" action="{{ route('password.update') }}" novalidate>
-                        @csrf
-
+                <form method="POST" action="{{ route('password.update') }}" novalidate>
+                    @csrf
+                    <div class="form-grupo">
                         <input type="hidden" name="token" value="{{ $token }}">
-
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Correo electrónico</label>
+                            <label for="email">Correo Electrónico</label>
                             <input type="email" id="email" name="email"
-                                   class="form-control @error('email') is-invalid @enderror"
-                                   value="{{ old('email', $email) }}" readonly>
+                                class="form-control @error('email') is-invalid @enderror"
+                                value="{{ old('email', $email) }}" readonly>
                             @error('email')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
-                        </div>
 
-                        <div class="mb-3">
-                            <label for="password" class="form-label">Contraseña nueva</label>
+                            <label for="password"> Contraseña Nueva </label>
                             <input type="password" id="password" name="password"
-                                   class="form-control @error('password') is-invalid @enderror"
-                                   autocomplete="new-password" required autofocus>
+                               class="form-control @error('password') is-invalid @enderror"
+                               autocomplete="new-password" required autofocus>
                             @error('password')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
-                        </div>
 
-                        <div class="mb-3">
-                            <label for="password_confirmation" class="form-label">Confirma la contraseña</label>
+                            <label for="password_confirmation"> Confirma la contraseña </label>
                             <input type="password" id="password_confirmation" name="password_confirmation"
-                                   class="form-control" autocomplete="new-password" required>
-                        </div>
-
-                        <button type="submit" class="btn btn-primary w-100">Guardar contraseña</button>
-                    </form>
-
-                </div>
+                               class="form-control" autocomplete="new-password" required>
+                            <button type="submit" class="btn btn-primary"> Guardar contraseña </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
-</div>
 @endsection

@@ -2,7 +2,7 @@
 
 // app/Http/Controllers/Auth/PasswordRecoveryController.php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Auth\Events\PasswordReset;
@@ -11,38 +11,33 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rules\Password as PasswordRule;
+use App\Models\User;
 
 class pass_recoveryController extends Controller
 {
-    // 1. Formulario donde el usuario escribe su correo
+    //Formulario de recuperación de contraseña
     public function create()
     {
-        return view('auth.recuperar-password');
+        return view('pass_recovery');
     }
 
-    // 2. Crea el token y envía el correo con el enlace
-    public function store(Request $request)
-    {
+    //Creación del token y envío del correo con el enlace
+    public function store(Request $request){
         $request->validate(['email' => ['required', 'email']]);
-
         Password::sendResetLink($request->only('email'));
-
-        // Mismo mensaje exista o no la cuenta, para no revelar qué correos están registrados
-        return back()->with('status', 'Si el correo está registrado, te enviamos las instrucciones.');
+        return back()->with('status', 'Si el correo está registrado, le enviaremos las instrucciones.');
     }
 
-    // 3. Formulario de contraseña nueva (se abre desde el enlace del correo)
-    public function edit(Request $request, string $token)
-    {
-        return view('auth.pass-recovery', [
+    //Formulario de contraseña nueva
+    public function edit(Request $request, string $token){
+        return view('pass-reset', [
             'token' => $token,
             'email' => $request->query('email'),
         ]);
     }
 
-    // 4. Verifica el token y guarda la contraseña nueva
-    public function update(Request $request)
-    {
+    //Verificación de token y actualización a contraseña nueva
+    public function update(Request $request){
         $request->validate([
             'token'    => ['required'],
             'email'    => ['required', 'email'],
@@ -51,12 +46,11 @@ class pass_recoveryController extends Controller
 
         $estado = Password::reset(
             $request->only('email', 'password', 'password_confirmation', 'token'),
-            function ($usuario, $password) {
+            function ($usuario, $password){
                 $usuario->forceFill([
                     'password'       => Hash::make($password),
                     'remember_token' => Str::random(60),
                 ])->save();
-
                 event(new PasswordReset($usuario));
             }
         );

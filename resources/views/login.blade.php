@@ -55,7 +55,7 @@
                             <input type="checkbox" name="remember">
                             Recordarme
                         </label>
-                        <a href="{{ route('') }}"> ¿Olvidaste tu contraseña? </a>
+                        <a href="{{ route('pass_recovery') }}"> ¿Olvidaste tu contraseña? </a>
                     </div>
                     <button type="submit" class="btn btn-primary login-btn"> Iniciar Sesion </button>
                 </form>
