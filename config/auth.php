@@ -50,6 +50,14 @@ return [
             'driver' => 'session',
             'provider' => 'veterinarios',
         ],
+
+        // Guard para la API: autentica por Bearer Token (Laravel Sanctum)
+        // en vez de sesión. El "provider" se resuelve dinámicamente según
+        // el modelo dueño del token (Dueno o Veterinario).
+        'sanctum' => [
+            'driver' => 'sanctum',
+            'provider' => null,
+        ],
     ],
 
     /*
